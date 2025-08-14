@@ -1,6 +1,9 @@
 // DOM要素の取得（$関数はmain.jsで既に定義済み）
 const logWorkoutBtn = document.querySelector('#logWorkout');
 const workoutLogContainer = document.querySelector('#workoutLog');
+const exerciseInput = document.querySelector('#exerciseInput');
+const repsInput = document.querySelector('#repsInput');
+const setsInput = document.querySelector('#setsInput');
 
 // 筋トレログのデータ管理
 function getWorkoutLogs() {
@@ -14,42 +17,38 @@ function saveWorkoutLogs(logs) {
 
 // ログを追加する機能
 function addWorkoutLog() {
-  console.log('🏋️‍♂️ ログ追加ボタンがクリックされました');
+  // 入力フィールドから値を取得
+  const exercise = exerciseInput.value.trim();
+  const reps = repsInput.value.trim() || '10';
+  const sets = setsInput.value.trim() || '1';
   
-  const exercise = prompt('筋トレの種類を入力してください（例：腕立て伏せ、スクワット）');
+  // 入力値の検証
   if (!exercise) {
-    console.log('❌ 筋トレの種類が入力されませんでした');
-    return;
-  }
-  
-  const reps = prompt('回数を入力してください（例：20）');
-  if (!reps) {
-    console.log('❌ 回数が入力されませんでした');
-    return;
-  }
-  
-  const sets = prompt('セット数を入力してください（例：3）');
-  if (!sets) {
-    console.log('❌ セット数が入力されませんでした');
+    alert('筋トレの種類を入力してください');
+    exerciseInput.focus();
     return;
   }
 
   const newLog = {
     id: Date.now(),
-    exercise: exercise.trim(),
-    reps: reps.trim(),
-    sets: sets.trim(),
+    exercise: exercise,
+    reps: reps,
+    sets: sets,
     date: new Date().toLocaleString('ja-JP')
   };
-
-  console.log('📝 新しいログ:', newLog);
 
   const logs = getWorkoutLogs();
   logs.unshift(newLog); // 最新のログを先頭に追加
   saveWorkoutLogs(logs);
   displayWorkoutLogs();
   
-  console.log('✅ ログが保存されました');
+  // 入力フィールドをクリア
+  exerciseInput.value = '';
+  repsInput.value = '';
+  setsInput.value = '';
+  
+  // 次の入力のために種類フィールドにフォーカス
+  exerciseInput.focus();
   
   // 花火エフェクトを呼び出し（confetti.jsで定義）
   if (typeof pokeConfetti === 'function') {
@@ -68,27 +67,28 @@ function deleteWorkoutLog(id) {
 // 画面表示を更新する機能
 function displayWorkoutLogs() {
   const logs = getWorkoutLogs();
-  
+
   if (logs.length === 0) {
-    workoutLogContainer.innerHTML = '<p style="color: var(--muted); font-style: italic;">まだログがありません。頑張って記録しよう！</p>';
+    workoutLogContainer.innerHTML = '<p style="color: var(--muted); font-style: italic; text-align: center; padding: 20px;">まだログがありません。頑張って記録しよう！</p>';
     return;
   }
 
   const logsHtml = logs.map(log => `
     <div class="workout-item" onclick="deleteWorkoutLog(${log.id})" style="
       background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 10px;
-      margin: 8px 0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin: 6px 0;
       cursor: pointer;
       transition: background 0.2s;
-      border-left: 3px solid var(--acc);
+      border-left: 2px solid var(--acc);
+      font-size: 13px;
     " onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <strong style="color: var(--acc);">${log.exercise}</strong>
-        <small style="color: var(--muted);">${log.date}</small>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+        <strong style="color: var(--acc); font-size: 14px;">${log.exercise}</strong>
+        <small style="color: var(--muted); font-size: 11px;">${log.date.split(' ')[1]}</small>
       </div>
-      <div style="margin-top: 4px; color: var(--fg);">
+      <div style="color: var(--fg); font-size: 12px;">
         ${log.reps}回 × ${log.sets}セット
       </div>
     </div>
@@ -102,23 +102,30 @@ window.deleteWorkoutLog = deleteWorkoutLog;
 
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🏋️‍♂️ workout.js が読み込まれました');
-  
   // ボタンイベントの設定
   if (logWorkoutBtn) {
-    console.log('✅ ログボタンが見つかりました');
     logWorkoutBtn.onclick = addWorkoutLog;
-  } else {
-    console.error('❌ ログボタンが見つかりません。HTMLのIDを確認してください。');
   }
   
-  // ログコンテナの確認
-  if (workoutLogContainer) {
-    console.log('✅ ログコンテナが見つかりました');
-  } else {
-    console.error('❌ ログコンテナが見つかりません。HTMLのIDを確認してください。');
+  // Enterキーでも送信できるように
+  if (exerciseInput) {
+    exerciseInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addWorkoutLog();
+    });
   }
   
+  if (repsInput) {
+    repsInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addWorkoutLog();
+    });
+  }
+  
+  if (setsInput) {
+    setsInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addWorkoutLog();
+    });
+  }
+
   // 初期表示
   displayWorkoutLogs();
 });

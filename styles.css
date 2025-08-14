@@ -37,7 +37,7 @@ body {
 }
 
 .container {
-  width: min(780px, 100%);
+  width: min(1200px, 100%);
   background: var(--card);
   border-radius: 16px;
   padding: 24px;
@@ -76,9 +76,15 @@ input[type="text"] {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-top: 16px
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr)
+  }
 }
 
 @media (max-width:780px) {
@@ -192,4 +198,65 @@ footer {
 a {
   color: var(--acc2);
   text-decoration: none
+}
+
+/* 筋トレログ専用スタイル */
+.workout-input-form {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workout-input-form input[type="text"],
+.workout-input-form input[type="number"] {
+  background: var(--btn);
+  color: var(--fg);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 12px;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.workout-input-form input[type="text"]:focus,
+.workout-input-form input[type="number"]:focus {
+  border-color: var(--acc);
+}
+
+.workout-input-form input[type="text"]::placeholder,
+.workout-input-form input[type="number"]::placeholder {
+  color: var(--muted);
+}
+
+.workout-input-form button {
+  margin-top: 5px;
+}
+
+/* 筋トレログ表示エリア */
+.workout-log {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* カスタムスクロールバー */
+.workout-log::-webkit-scrollbar {
+  width: 6px;
+}
+
+.workout-log::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+}
+
+.workout-log::-webkit-scrollbar-thumb {
+  background: var(--acc);
+  border-radius: 3px;
+}
+
+.workout-log::-webkit-scrollbar-thumb:hover {
+  background: var(--acc2);
 }

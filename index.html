@@ -45,9 +45,24 @@
       </div>
 
       <div class="card">
-        <h3>今日の筋トレログ</h3>
-        <p>ここに筋トレの記録を追加するよ。</p>
-        <button id="logWorkout">ログを追加</button>
+        <h3>🎵 お気に入りのBGM</h3>
+        <p>お気に入りのBGMを再生するよ。</p>
+        <button id="addBGM">BGMを追加</button>
+        <div class="note">BGMをクリックで削除。</div>
+        <div id="reflectionList" class="reflection-list">
+          <!-- BGMがここに追加される -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>💪 今日の筋トレログ</h3>
+        <p>筋トレの記録を追加しよう！</p>
+        <div class="workout-input-form">
+          <input type="text" id="exerciseInput" placeholder="筋トレの種類（例：腕立て伏せ）">
+          <input type="number" id="repsInput" placeholder="回数" min="1">
+          <input type="number" id="setsInput" placeholder="セット数" min="1">
+          <button id="logWorkout">ログを追加</button>
+        </div>
         <div class="note">ログをクリックで削除。</div>
         <div id="workoutLog" class="workout-log">
           <!-- 筋トレログがここに追加される -->
@@ -71,16 +86,6 @@
         <div class="note">日記をクリックで削除。</div>
         <div id="learningList" class="learning-list">
           <!-- 日記がここに追加される -->
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>お気に入りのBGMを再生</h3>
-        <p>お気に入りのBGMを再生するよ。</p>
-        <button id="addBGM">BGMを追加</button>
-        <div class="note">BGMをクリックで削除。</div>
-        <div id="reflectionList" class="reflection-list">
-          <!-- BGMがここに追加される -->
         </div>
       </div>
 
