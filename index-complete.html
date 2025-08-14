@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Switch Mode</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Switch Mode</h1>
+      <div class="toggle" id="themeToggle" title="テーマ切替">🌓 テーマ</div>
+      <div class="small" id="hello"></div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <input id="name" type="text" placeholder="名前を入れると挨拶するよ">
+      <button id="saveName">保存</button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>⏱ フォーカスタイマー</h3>
+        <p>25分集中 → 5分休憩（通知と音）</p>
+        <div class="row">
+          <div class="timer" id="timer">25:00</div>
+          <button id="start">開始</button>
+          <button id="reset" style="background:#6b7280">リセット</button>
+        </div>
+        <div class="note">通知を許可するとバックグラウンドでもお知らせするよ。</div>
+      </div>
+
+      <div class="card">
+        <h3>💬 ランダム一言</h3>
+        <p id="quote">ボタンでひとこと。</p>
+        <button id="next">ひとこと出す</button>
+      </div>
+
+      <div class="card">
+        <h3>🎉 ちょい花火</h3>
+        <p>気分転換にクリック！</p>
+        <button id="boom">ドンッ</button>
+        <div class="note">画面クリックでもOK。</div>
+      </div>
+    </div>
+
+    <footer>Made for your reset. <a href="#" id="clear">データ消去</a></footer>
+  </div>
+  <canvas class="confetti" id="conf"></canvas>
+
+  <script src="js/main.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/theme.js"></script>
+</body>
+
+</html>
